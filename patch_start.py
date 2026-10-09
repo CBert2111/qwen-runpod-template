@@ -13,18 +13,18 @@ if marker not in text:
     )
 
 block = r'''
-# Installiere die Abhängigkeiten von ComfyUI v0.37.0 einmalig.
-REQ_MARKER="/workspace/runpod-slim/.qwen-comfyui-v037-requirements-installed"
+BUNDLE_VERSION="$(cat /opt/comfyui-baked/.runpod-bundle-version)"
+REQ_MARKER="/workspace/runpod-slim/.${BUNDLE_VERSION}-requirements-installed"
 
 if [ ! -f "$REQ_MARKER" ]; then
-    echo "=== COMFYUI V0.37.0 REQUIREMENTS START ==="
+    echo "=== COMFYUI REQUIREMENTS START: $BUNDLE_VERSION ==="
 
     python -m pip install -r "$COMFYUI_DIR/requirements.txt"
 
     mkdir -p "$(dirname "$REQ_MARKER")"
     touch "$REQ_MARKER"
 
-    echo "=== COMFYUI V0.37.0 REQUIREMENTS COMPLETE ==="
+    echo "=== COMFYUI REQUIREMENTS COMPLETE: $BUNDLE_VERSION ==="
 fi
 echo "=== QWEN MODEL PROVISIONING START ==="
 
