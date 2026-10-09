@@ -13,6 +13,19 @@ if marker not in text:
     )
 
 block = r'''
+# Installiere die Abhängigkeiten von ComfyUI v0.37.0 einmalig.
+REQ_MARKER="/workspace/runpod-slim/.qwen-comfyui-v037-requirements-installed"
+
+if [ ! -f "$REQ_MARKER" ]; then
+    echo "=== COMFYUI V0.37.0 REQUIREMENTS START ==="
+
+    python -m pip install -r "$COMFYUI_DIR/requirements.txt"
+
+    mkdir -p "$(dirname "$REQ_MARKER")"
+    touch "$REQ_MARKER"
+
+    echo "=== COMFYUI V0.37.0 REQUIREMENTS COMPLETE ==="
+fi
 echo "=== QWEN MODEL PROVISIONING START ==="
 
 BASE="https://huggingface.co/Comfy-Org/Qwen-Image-2.1/resolve/main"
