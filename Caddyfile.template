@@ -1,0 +1,29 @@
+:8189 {
+    basic_auth {
+        {$WEB_USER} {$WEB_PASSWORD_HASH}
+    }
+
+    @workflow query workflow=Qwen_2.1_Image_Edit_for_Dataset.json
+    handle @workflow {
+        reverse_proxy 127.0.0.1:8188
+    }
+
+    @root path /
+    handle @root {
+        root * /opt
+        rewrite * /landing.html
+        file_server
+    }
+
+    handle {
+        reverse_proxy 127.0.0.1:8188
+    }
+}
+
+:8889 {
+    basic_auth {
+        {$WEB_USER} {$WEB_PASSWORD_HASH}
+    }
+
+    reverse_proxy 127.0.0.1:8888
+}
