@@ -1,6 +1,6 @@
 FROM caddy:2.11.7 AS caddy
 
-FROM runpod/comfyui:cuda13.0
+FROM runpod/comfyui:cuda12.8
 
 COPY --from=caddy /usr/bin/caddy /usr/local/bin/caddy
 
